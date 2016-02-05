@@ -4,7 +4,7 @@ import java.util.List;
 
 import ua.cooperok.etsy.data.model.Listing;
 
-public interface SearchResultView extends DataLoadingView {
+public interface ISearchResultView extends IDataLoadingView {
 
     void showListingDetailView(Listing listing);
 

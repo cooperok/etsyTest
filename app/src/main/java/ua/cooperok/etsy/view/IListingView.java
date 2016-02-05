@@ -2,7 +2,7 @@ package ua.cooperok.etsy.view;
 
 import ua.cooperok.etsy.data.model.Listing;
 
-public interface ListingView {
+public interface IListingView {
 
     /**
      * Оповещает об изменении состояния товара, добавлен либо удален из списка сохраненных товаров

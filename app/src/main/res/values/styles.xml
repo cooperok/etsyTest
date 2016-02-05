@@ -1,11 +1,30 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/default_primary_color</item>
+        <item name="colorPrimaryDark">@color/dark_primary_color</item>
+        <item name="colorAccent">@color/accent_color</item>
+        <item name="titleTextColor">@color/text_primary_color</item>
+    </style>
+
+    <style name="instrument_text" parent="base_text">
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">3dp</item>
+    </style>
+
+    <style name="base_text">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/primary_text_color</item>
+    </style>
+
+    <style name="clicable_text" parent="base_text">
+        <item name="android:textColor">@color/primary_text_selector</item>
+    </style>
+
+    <style name="action_text" parent="base_text">
+        <item name="android:textColor">@color/action_text_selector</item>
     </style>
 
 </resources>

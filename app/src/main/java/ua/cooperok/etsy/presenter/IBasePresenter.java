@@ -1,8 +1,8 @@
 package ua.cooperok.etsy.presenter;
 
-public interface BasePresenter {
+public interface IBasePresenter {
 
-    void onStart();
+    void onResume();
 
     void onPause();
 

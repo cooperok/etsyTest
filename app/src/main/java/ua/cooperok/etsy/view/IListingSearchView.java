@@ -5,7 +5,7 @@ import java.util.List;
 import ua.cooperok.etsy.data.model.Category;
 import ua.cooperok.etsy.data.model.Listing;
 
-public interface ListingSearchView extends DataLoadingView {
+public interface IListingSearchView extends IDataLoadingView {
 
     void setCategories(List<Category> categories);
 

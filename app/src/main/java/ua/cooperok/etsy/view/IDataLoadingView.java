@@ -1,6 +1,6 @@
 package ua.cooperok.etsy.view;
 
-public interface DataLoadingView {
+public interface IDataLoadingView {
 
     void showPreload();
 
