@@ -1,14 +1,23 @@
 package ua.cooperok.etsy.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Категория товара
  */
 public class Category {
 
-    private int mId;
+    @SerializedName("category_id")
+    @Expose
+    private long mId;
 
+    @SerializedName("page_title")
+    @Expose
     private String mTitle;
 
+    @SerializedName("category_name")
+    @Expose
     private String mName;
 
     public Category(int id, String name, String title) {
@@ -17,7 +26,7 @@ public class Category {
         mTitle = title;
     }
 
-    public int getId() {
+    public long getId() {
         return mId;
     }
 

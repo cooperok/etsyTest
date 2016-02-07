@@ -17,9 +17,14 @@ import ua.cooperok.etsy.view.fragment.SearchFragment;
 )
 public interface ViewComponent {
     void inject(MainActivity view);
+
     void inject(MainFragment view);
+
     void inject(SearchFragment view);
+
     void inject(SavedListingsFragment view);
+
     void inject(ISearchResultView view);
+
     void inject(IListingDetailView view);
 }

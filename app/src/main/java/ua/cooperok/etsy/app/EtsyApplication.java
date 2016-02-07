@@ -5,6 +5,7 @@ import android.app.Application;
 import ua.cooperok.etsy.dagger.components.AppComponent;
 import ua.cooperok.etsy.dagger.components.DaggerAppComponent;
 import ua.cooperok.etsy.dagger.module.AppModule;
+import ua.cooperok.etsy.log.Logger;
 
 public class EtsyApplication extends Application {
 
@@ -17,6 +18,7 @@ public class EtsyApplication extends Application {
         super.onCreate();
         sInstance = this;
         setupGraph();
+        Logger.buildLogger(getApplicationContext());
     }
 
     private void setupGraph() {

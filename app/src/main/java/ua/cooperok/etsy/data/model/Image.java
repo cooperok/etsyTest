@@ -1,24 +1,43 @@
 package ua.cooperok.etsy.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Изображение товара, содержит в себе отдельные URL картинок, разных размеров
  */
 public class Image {
 
+    @SerializedName("listing_image_id")
+    @Expose
     private long mId;
 
+    @SerializedName("listing_id")
+    @Expose
     private long mListingId;
 
+    @SerializedName("full_height")
+    @Expose
     private int mFullHeight;
 
+    @SerializedName("full_width")
+    @Expose
     private int mFullWidth;
 
+    @SerializedName("url_75x75")
+    @Expose
     private String mUrl75x75;
 
+    @SerializedName("url_170x135")
+    @Expose
     private String mUrl170x135;
 
+    @SerializedName("url_570xN")
+    @Expose
     private String mUrl570xN;
 
+    @SerializedName("url_fullxfull")
+    @Expose
     private String mUrlFullxFull;
 
     public Image(long id, long listingId, int width, int height) {

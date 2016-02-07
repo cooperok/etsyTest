@@ -20,14 +20,12 @@ public class NetModule {
 
     String mBaseUrl;
 
-    // Constructor needs one parameter to instantiate.
     public NetModule(String baseUrl) {
         this.mBaseUrl = baseUrl;
     }
 
-    // Dagger will only look for methods annotated with @Provides
     @Provides
-    // Application reference must come from AppModule.class
+        // Application reference must come from AppModule.class
     SharedPreferences providesSharedPreferences(Application application) {
         return PreferenceManager.getDefaultSharedPreferences(application);
     }

@@ -6,6 +6,7 @@ import ua.cooperok.etsy.presenter.ISearchResultPresenter;
 import ua.cooperok.etsy.view.ISearchResultView;
 
 public class SearchResultPresenter implements ISearchResultPresenter {
+
     public SearchResultPresenter(ISearchResultView view) {
     }
 

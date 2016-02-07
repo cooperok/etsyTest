@@ -1,5 +1,8 @@
 package ua.cooperok.etsy.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -8,24 +11,44 @@ import java.util.List;
  */
 public class Listing {
 
+    @SerializedName("listing_id")
+    @Expose
     private long mId;
 
+    @SerializedName("category_id")
+    @Expose
     private long mCategoryId;
 
+    @SerializedName("title")
+    @Expose
     private String mTitle;
 
+    @SerializedName("description")
+    @Expose
     private String mDescription;
 
+    @SerializedName("price")
+    @Expose
     private BigDecimal mPrice;
 
+    @SerializedName("currency_code")
+    @Expose
     private String mCurrency;
 
+    @SerializedName("quantity")
+    @Expose
     private int mQuantity;
 
+    @SerializedName("url")
+    @Expose
     private String mUrl;
 
+    @SerializedName("creation_tsz")
+    @Expose
     private long mCreationTsz;
 
+    @SerializedName("ending_tsz")
+    @Expose
     private long mEndingTsz;
 
     private List<Image> mImages;

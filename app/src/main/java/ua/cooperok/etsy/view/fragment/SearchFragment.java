@@ -2,6 +2,7 @@ package ua.cooperok.etsy.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,12 @@ public class SearchFragment extends BaseFragment implements IListingSearchView {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mPresenter.loadCategories();
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_search;
     }
@@ -58,7 +65,9 @@ public class SearchFragment extends BaseFragment implements IListingSearchView {
 
     @Override
     public void setCategories(List<Category> categories) {
-
+        for (Category category : categories) {
+            Log.i("test", "SearchFragment.setCategories (line 68): " + category.getTitle());
+        }
     }
 
     @Override

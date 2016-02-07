@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
-import ua.cooperok.etsy.R;
 import ua.cooperok.etsy.app.EtsyApplication;
 import ua.cooperok.etsy.dagger.components.AppComponent;
 import ua.cooperok.etsy.presenter.IBasePresenter;
