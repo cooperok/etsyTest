@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/listing_layout_padding">
+
+    <ImageView
+        android:id="@+id/listing_image"
+        android:layout_width="@dimen/listing_image_width"
+        android:layout_height="@dimen/listing_image_height"
+        android:layout_gravity="center_horizontal"
+        tools:src="@drawable/tools_listing_image" />
+
+    <TextView
+        android:id="@+id/listing_title"
+        style="@style/listing_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/listing_title_margin_bottom"
+        android:maxLines="1"
+        tools:text="Listing title" />
+
+    <TextView
+        android:id="@+id/listing_description"
+        style="@style/base_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/listing_description_margin_bottom"
+        android:maxLines="2"
+        tools:text="Listing description with many many many many many many many many many many many many many many words" />
+
+
+    <TextView
+        android:id="@+id/listing_price"
+        style="@style/listing_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/listing_price_margin_bottom"
+        tools:text="Price: 1 200 USD" />
+
+    <TextView
+        android:id="@+id/listing_quantity"
+        style="@style/base_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Quantity: 1" />
+
+</LinearLayout>

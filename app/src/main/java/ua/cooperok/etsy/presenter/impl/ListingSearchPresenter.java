@@ -4,14 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ua.cooperok.etsy.app.ApiHelper;
-import ua.cooperok.etsy.app.EtsyApplication;
-import ua.cooperok.etsy.dagger.components.DaggerDataServiceComponent;
-import ua.cooperok.etsy.dagger.components.DaggerNetComponent;
-import ua.cooperok.etsy.dagger.components.DataServiceComponent;
-import ua.cooperok.etsy.dagger.components.NetComponent;
-import ua.cooperok.etsy.dagger.module.DataServiceModule;
-import ua.cooperok.etsy.dagger.module.NetModule;
 import ua.cooperok.etsy.data.Callback;
 import ua.cooperok.etsy.data.DataProvider;
 import ua.cooperok.etsy.data.model.Category;
@@ -22,23 +14,13 @@ public class ListingSearchPresenter implements IListingSearchPresenter {
 
     private IListingSearchView mView;
 
-    @Inject
-    DataProvider mDataProvider;
+    private Category mCategory;
 
-    public ListingSearchPresenter(IListingSearchView view) {
+    private DataProvider mDataProvider;
+
+    public ListingSearchPresenter(IListingSearchView view, DataProvider dataProvider) {
         mView = view;
-
-        NetComponent netComponent = DaggerNetComponent.builder()
-                .appComponent(EtsyApplication.getInstance().getComponent())
-                .netModule(new NetModule(ApiHelper.API_URL))
-                .build();
-
-        DataServiceComponent dataServiceComponent = DaggerDataServiceComponent.builder()
-                .dataServiceModule(new DataServiceModule())
-                .netComponent(netComponent)
-                .build();
-
-        dataServiceComponent.inject(this);
+        mDataProvider = dataProvider;
     }
 
     @Override
@@ -46,24 +28,28 @@ public class ListingSearchPresenter implements IListingSearchPresenter {
         mDataProvider.requestCategories(new Callback<List<Category>>() {
             @Override
             public void onDataReceived(List<Category> data) {
-                mView.setCategories(data);
+                if (data.isEmpty()) {
+                    mView.onEmptyCategories();
+                } else {
+                    mView.setCategories(data);
+                }
             }
 
             @Override
             public void onError() {
-
+                mView.onLoadError();
             }
         });
     }
 
     @Override
     public void searchListings(String searchText) {
-
+        mView.showSearchResultView(searchText, mCategory);
     }
 
     @Override
     public void onCategorySelected(Category category) {
-
+        mCategory = category;
     }
 
     @Override

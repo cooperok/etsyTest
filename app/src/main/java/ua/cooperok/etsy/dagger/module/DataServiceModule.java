@@ -2,7 +2,7 @@ package ua.cooperok.etsy.dagger.module;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit.Retrofit;
+import retrofit2.Retrofit;
 import ua.cooperok.etsy.data.DataProvider;
 import ua.cooperok.etsy.data.db.DatabaseDataProvider;
 import ua.cooperok.etsy.data.net.NetDataProvider;

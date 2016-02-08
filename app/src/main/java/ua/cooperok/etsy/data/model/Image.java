@@ -1,12 +1,15 @@
 package ua.cooperok.etsy.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Изображение товара, содержит в себе отдельные URL картинок, разных размеров
+ * Listing image, contains different URL's for different image size
  */
-public class Image {
+public class Image implements Parcelable {
 
     @SerializedName("listing_image_id")
     @Expose
@@ -39,6 +42,17 @@ public class Image {
     @SerializedName("url_fullxfull")
     @Expose
     private String mUrlFullxFull;
+
+    public Image(Parcel in) {
+        mId = in.readLong();
+        mListingId = in.readLong();
+        mFullHeight = in.readInt();
+        mFullWidth = in.readInt();
+        mUrl75x75 = in.readString();
+        mUrl170x135 = in.readString();
+        mUrl570xN = in.readString();
+        mUrlFullxFull = in.readString();
+    }
 
     public Image(long id, long listingId, int width, int height) {
         mId = id;
@@ -94,4 +108,34 @@ public class Image {
     public void setUrl170x135(String url) {
         mUrl170x135 = url;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(mId);
+        dest.writeLong(mListingId);
+        dest.writeInt(mFullHeight);
+        dest.writeInt(mFullWidth);
+        dest.writeString(mUrl75x75);
+        dest.writeString(mUrl170x135);
+        dest.writeString(mUrl570xN);
+        dest.writeString(mUrlFullxFull);
+    }
+
+    public static final Creator<Image> CREATOR = new Creator<Image>() {
+        @Override
+        public Image createFromParcel(Parcel in) {
+            return new Image(in);
+        }
+
+        @Override
+        public Image[] newArray(int size) {
+            return new Image[size];
+        }
+    };
+
 }

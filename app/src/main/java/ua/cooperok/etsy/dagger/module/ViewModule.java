@@ -2,10 +2,11 @@ package ua.cooperok.etsy.dagger.module;
 
 import dagger.Module;
 import dagger.Provides;
+import ua.cooperok.etsy.data.DataProvider;
 import ua.cooperok.etsy.presenter.IListingDetailPresenter;
 import ua.cooperok.etsy.presenter.IListingSearchPresenter;
 import ua.cooperok.etsy.presenter.IMainActivityPresenter;
-import ua.cooperok.etsy.presenter.IMainTabsPresentrer;
+import ua.cooperok.etsy.presenter.IMainTabsPresenter;
 import ua.cooperok.etsy.presenter.ISavedListingsPresenter;
 import ua.cooperok.etsy.presenter.ISearchResultPresenter;
 import ua.cooperok.etsy.presenter.impl.ListDetailPresenter;
@@ -23,7 +24,7 @@ import ua.cooperok.etsy.view.ISearchResultView;
 
 @Module
 /**
- * Один модуль на все view
+ * One module for all views
  */
 public class ViewModule {
 
@@ -99,13 +100,13 @@ public class ViewModule {
     }
 
     @Provides
-    IMainTabsPresentrer getMainTabsPresenter(IMainTabsView view) {
+    IMainTabsPresenter getMainTabsPresenter(IMainTabsView view) {
         return new MainTabsPresenter(view);
     }
 
     @Provides
-    IListingSearchPresenter getListingSearchPresenter(IListingSearchView view) {
-        return new ListingSearchPresenter(view);
+    IListingSearchPresenter getListingSearchPresenter(IListingSearchView view, DataProvider dataProvider) {
+        return new ListingSearchPresenter(view, dataProvider);
     }
 
     @Provides
@@ -114,8 +115,8 @@ public class ViewModule {
     }
 
     @Provides
-    ISearchResultPresenter getSearchResultPresenter(ISearchResultView view) {
-        return new SearchResultPresenter(view);
+    ISearchResultPresenter getSearchResultPresenter(ISearchResultView view, DataProvider dataProvider) {
+        return new SearchResultPresenter(view, dataProvider);
     }
 
     @Provides

@@ -3,15 +3,15 @@ package ua.cooperok.etsy.dagger.components;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
-import com.squareup.okhttp.Cache;
-import com.squareup.okhttp.OkHttpClient;
 
 import dagger.Component;
-import retrofit.Retrofit;
-import ua.cooperok.etsy.dagger.ActivityScope;
+import okhttp3.Cache;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import ua.cooperok.etsy.dagger.NetScope;
 import ua.cooperok.etsy.dagger.module.NetModule;
 
-@ActivityScope
+@NetScope
 @Component(
         dependencies = AppComponent.class,
         modules = NetModule.class

@@ -9,10 +9,11 @@ import ua.cooperok.etsy.view.activity.MainActivity;
 import ua.cooperok.etsy.view.fragment.MainFragment;
 import ua.cooperok.etsy.view.fragment.SavedListingsFragment;
 import ua.cooperok.etsy.view.fragment.SearchFragment;
+import ua.cooperok.etsy.view.fragment.SearchResultsFragment;
 
 @ActivityScope
 @Component(
-        dependencies = AppComponent.class,
+        dependencies = DataServiceComponent.class,
         modules = ViewModule.class
 )
 public interface ViewComponent {
@@ -24,7 +25,7 @@ public interface ViewComponent {
 
     void inject(SavedListingsFragment view);
 
-    void inject(ISearchResultView view);
+    void inject(SearchResultsFragment view);
 
     void inject(IListingDetailView view);
 }

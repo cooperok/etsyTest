@@ -1,9 +1,9 @@
 package ua.cooperok.etsy.data.net.api;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import ua.cooperok.etsy.data.model.Category;
 import ua.cooperok.etsy.data.model.Image;
 import ua.cooperok.etsy.data.model.Listing;
@@ -15,12 +15,12 @@ public interface EtsyService {
     Call<Result<Category>> getCategories(@Query("api_key") String apiKey);
 
     @GET("/v2/listings/{listingId}")
-    Call<Result<Listing>> getListing(@Query("apiKey") String apiKey, @Path("listingId") long listingId);
+    Call<Result<Listing>> getListing(@Query("api_key") String apiKey, @Path("listingId") long listingId);
 
     @GET("/v2/listings/{listingId}/images")
-    Call<Result<Image>> getListingImages(@Query("apiKey") String apiKey, @Path("listingId") long listingId);
+    Call<Result<Image>> getListingImages(@Query("api_key") String apiKey, @Path("listingId") long listingId);
 
     @GET("/v2/listings/active")
-    Call<Result<Listing>> getListings(@Query("apiKey") String apiKey, @Query("categoryName") String categoryName, @Query("keywords") String keywords);
+    Call<Result<Listing>> getListings(@Query("api_key") String apiKey, @Query("category") String categoryName, @Query("keywords") String keywords);
 
 }

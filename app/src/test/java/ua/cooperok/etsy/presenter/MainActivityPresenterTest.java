@@ -26,9 +26,9 @@ public class MainActivityPresenterTest {
     }
 
     @Test
-    public void testShowMainTabsOnResume() {
+    public void testShowMainTabsOnCreate() {
         verify(mMainActivityView, never()).showMainTabsView();
-        mMainActivityPresenter.onResume();
+        mMainActivityPresenter.onCreate();
         verify(mMainActivityView).showMainTabsView();
     }
 

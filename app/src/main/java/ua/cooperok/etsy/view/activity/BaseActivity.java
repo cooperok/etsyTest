@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import ua.cooperok.etsy.app.EtsyApplication;
 import ua.cooperok.etsy.dagger.components.AppComponent;
+import ua.cooperok.etsy.dagger.components.DataServiceComponent;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -13,11 +14,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
-        setUpComponent(EtsyApplication.getInstance().getComponent());
+        setUpComponent(EtsyApplication.getInstance().getDataServiceComponent());
         ButterKnife.bind(this);
     }
 
-    abstract protected void setUpComponent(AppComponent component);
+    abstract protected void setUpComponent(DataServiceComponent component);
 
     abstract protected int getLayout();
 

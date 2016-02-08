@@ -16,7 +16,7 @@ public interface IDataProvider {
 
     void requestListingImages(long listingId, Callback<List<Image>> callback);
 
-    void requestListings(Category categoryId, String search, long offset, long limit, Callback<List<Listing>> callback);
+    void requestListings(Category categoryId, String search, int offset, int limit, Callback<List<Listing>> callback);
 
     void requestCategories(Callback<List<Category>> callback);
 

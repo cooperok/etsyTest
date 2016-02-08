@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
+    <Spinner
+        android:id="@+id/categories_spinner"
+        android:layout_width="@dimen/search_edit_width"
         android:layout_height="wrap_content"
-        android:id="@+id/searchText"
-        android:text="SEARCH"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal" />
-</LinearLayout>
+
+    <EditText
+        android:id="@+id/search_edit_text"
+        style="@style/search_edit_text"
+        android:layout_width="@dimen/search_edit_width"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/categories_spinner"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/search_hint"
+        tools:hint="@string/search_hint" />
+
+    <Button
+        android:id="@+id/search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_edit_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/search_btn_margin_top"
+        android:text="@string/search_btn_text"
+        tools:text="@string/search_btn_text" />
+
+</RelativeLayout>

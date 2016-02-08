@@ -1,9 +1,11 @@
 package ua.cooperok.etsy.dagger.components;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 import ua.cooperok.etsy.dagger.DataScope;
 import ua.cooperok.etsy.dagger.module.DataServiceModule;
-import ua.cooperok.etsy.presenter.impl.ListingSearchPresenter;
+import ua.cooperok.etsy.data.DataProvider;
 
 @DataScope
 @Component(
@@ -12,6 +14,6 @@ import ua.cooperok.etsy.presenter.impl.ListingSearchPresenter;
 )
 public interface DataServiceComponent {
 
-    void inject(ListingSearchPresenter presenter);
+    DataProvider getDataProvider();
 
 }

@@ -9,13 +9,8 @@
         <item name="titleTextColor">@color/text_primary_color</item>
     </style>
 
-    <style name="instrument_text" parent="base_text">
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">3dp</item>
-    </style>
-
     <style name="base_text">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/primary_text_color</item>
     </style>
 
@@ -23,8 +18,28 @@
         <item name="android:textColor">@color/primary_text_selector</item>
     </style>
 
+    <style name="show_in_browser_text" parent="action_text">
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="action_text" parent="base_text">
         <item name="android:textColor">@color/action_text_selector</item>
+    </style>
+
+    <style name="categories_spinner_item" parent="base_text">
+
+    </style>
+
+    <style name="search_edit_text" parent="base_text">
+        <item name="android:textColorHint">@color/secondary_text_color</item>
+    </style>
+
+    <style name="listing_title" parent="clicable_text">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="listing_price" parent="base_text">
+        <item name="android:textColor">@color/accent_color</item>
     </style>
 
 </resources>

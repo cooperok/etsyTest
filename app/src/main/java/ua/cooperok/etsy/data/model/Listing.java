@@ -1,15 +1,19 @@
 package ua.cooperok.etsy.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Товар
  */
-public class Listing {
+public class Listing implements Parcelable {
 
     @SerializedName("listing_id")
     @Expose
@@ -52,6 +56,21 @@ public class Listing {
     private long mEndingTsz;
 
     private List<Image> mImages;
+
+    public Listing(Parcel in) {
+        mId = in.readLong();
+        mCategoryId = in.readLong();
+        mTitle = in.readString();
+        mDescription = in.readString();
+        mPrice = new BigDecimal(in.readString());
+        mCurrency = in.readString();
+        mQuantity = in.readInt();
+        mUrl = in.readString();
+        mCreationTsz = in.readLong();
+        mEndingTsz = in.readLong();
+        mImages = new ArrayList<>();
+        in.readTypedList(mImages, Image.CREATOR);
+    }
 
     public Listing(long categoryId, long id, String title, BigDecimal price, String currency) {
         mCategoryId = categoryId;
@@ -128,4 +147,37 @@ public class Listing {
     public void addImage(Image image) {
         mImages.add(image);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(mId);
+        dest.writeLong(mCategoryId);
+        dest.writeString(mTitle);
+        dest.writeString(mDescription);
+        dest.writeString(mPrice.toString());
+        dest.writeString(mCurrency);
+        dest.writeInt(mQuantity);
+        dest.writeString(mUrl);
+        dest.writeLong(mCreationTsz);
+        dest.writeLong(mEndingTsz);
+        dest.writeTypedList(mImages);
+    }
+
+    public static final Creator<Listing> CREATOR = new Creator<Listing>() {
+        @Override
+        public Listing createFromParcel(Parcel in) {
+            return new Listing(in);
+        }
+
+        @Override
+        public Listing[] newArray(int size) {
+            return new Listing[size];
+        }
+    };
+
 }

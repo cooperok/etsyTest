@@ -24,7 +24,7 @@ public class DatabaseDataProvider implements IDataProvider {
     }
 
     @Override
-    public void requestListings(Category categoryId, String search, long offset, long limit, Callback<List<Listing>> callback) {
+    public void requestListings(Category categoryId, String search, int offset, int limit, Callback<List<Listing>> callback) {
 
     }
 

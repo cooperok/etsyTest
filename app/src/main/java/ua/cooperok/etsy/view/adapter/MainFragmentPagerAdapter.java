@@ -6,16 +6,18 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.LinkedList;
 
+import ua.cooperok.etsy.view.fragment.BaseFragment;
+
 public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private LinkedList<Fragment> mFragments;
+    private LinkedList<BaseFragment> mFragments;
 
     public MainFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
         mFragments = new LinkedList<>();
     }
 
-    public void addFragment(Fragment fragment) {
+    public void addFragment(BaseFragment fragment) {
         mFragments.add(fragment);
     }
 
@@ -31,6 +33,6 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mFragments.get(position).getTag();
+        return mFragments.get(position).getTitle();
     }
 }

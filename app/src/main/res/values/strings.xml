@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">EtsyExample</string>
+
+    <string name="search_tab">Search</string>
+    <string name="saved_list_tab">Saved list</string>
+    <string name="returned_empty_categories_list">Failed to load categories</string>
+    <string name="load_error">Loading error</string>
+    <string name="search_hint">Search...</string>
+    <string name="search_btn_text">Search</string>
+    <string name="listing_show_in_browser">Open in browser</string>
+    <string name="listing_quantity_string">Quantity: %d</string>
+    <string name="listing_price_string">Price: %1$s %2$s</string>
+
 </resources>

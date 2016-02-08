@@ -34,7 +34,7 @@ public class DataProvider implements IDataProvider {
     }
 
     @Override
-    public void requestListings(Category category, String search, long offset, long limit, Callback<List<Listing>> callback) {
+    public void requestListings(Category category, String search, int offset, int limit, Callback<List<Listing>> callback) {
         getProvider().requestListings(category, search, offset, limit, callback);
     }
 

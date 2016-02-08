@@ -5,19 +5,26 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".app.EtsyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".app.EtsyApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.MainActivity">
+
+        <activity android:name=".view.activity.MainActivity" />
+
+        <activity-alias
+            android:name="LauchActivity"
+            android:targetActivity=".view.activity.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+
+        </activity-alias>
+
     </application>
 
 </manifest>

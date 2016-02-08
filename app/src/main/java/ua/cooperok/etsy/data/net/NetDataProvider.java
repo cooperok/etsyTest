@@ -2,9 +2,9 @@ package ua.cooperok.etsy.data.net;
 
 import java.util.List;
 
-import retrofit.Call;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import ua.cooperok.etsy.app.ApiHelper;
 import ua.cooperok.etsy.data.Callback;
 import ua.cooperok.etsy.data.IDataProvider;
@@ -41,7 +41,7 @@ public class NetDataProvider implements IDataProvider {
     }
 
     @Override
-    public void requestListings(Category category, String search, long offset, long limit, Callback<List<Listing>> callback) {
+    public void requestListings(Category category, String search, int offset, int limit, Callback<List<Listing>> callback) {
         Call<Result<Listing>> call = mService.getListings(ApiHelper.API_KEY, category.getName(), search);
         enqueueCallForList(call, callback);
     }
@@ -75,9 +75,10 @@ public class NetDataProvider implements IDataProvider {
      * @param <T>
      */
     private <T> void enqueueCall(Call<Result<T>> call, final Callback<T> callback) {
-        call.enqueue(new retrofit.Callback<Result<T>>() {
+        call.enqueue(new retrofit2.Callback<Result<T>>() {
+
             @Override
-            public void onResponse(Response<Result<T>> response, Retrofit retrofit) {
+            public void onResponse(Response<Result<T>> response) {
                 //Result data always is an array, so we should retrieve first element
                 //if it's not present to prevent IndexOutOfBoundsException return null
                 Result result = response.body();
@@ -103,10 +104,12 @@ public class NetDataProvider implements IDataProvider {
      * @param <T>
      */
     private <T> void enqueueCallForList(Call<Result<T>> call, final Callback<List<T>> callback) {
-        call.enqueue(new retrofit.Callback<Result<T>>() {
+        call.enqueue(new retrofit2.Callback<Result<T>>() {
             @Override
-            public void onResponse(Response<Result<T>> response, Retrofit retrofit) {
-                callback.onDataReceived(response.body().getResult());
+            public void onResponse(Response<Result<T>> response) {
+                if (response.body() != null) {
+                    callback.onDataReceived(response.body().getResult());
+                }
             }
 
             @Override
