@@ -4,6 +4,10 @@ import ua.cooperok.etsy.data.model.Listing;
 
 public interface IListingDetailPresenter extends IListingPresenter, IBasePresenter {
 
-    void loadListing(Listing listing);
+    void loadListingInfo(Listing listing);
+
+    void onSaveListingClick(Listing listing);
+
+    void onRemoveFromSavedClick(Listing listing);
 
 }

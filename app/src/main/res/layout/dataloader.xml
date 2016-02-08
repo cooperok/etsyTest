@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ua.cooperok.etsy.view.widget.ProgressWheel xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/progress_wheel"
+    android:layout_width="@dimen/progress_wheel_size"
+    android:layout_height="@dimen/progress_wheel_size"
+    app:barColor="@color/installer_white_color"
+    app:barWidth="@dimen/progress_wheel_bar_width"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center"
+    app:circleRadius="@dimen/progress_wheel_circle_radius"
+    app:spinSpeed="@dimen/progress_while_spin_speed"
+    android:visibility="gone"/>

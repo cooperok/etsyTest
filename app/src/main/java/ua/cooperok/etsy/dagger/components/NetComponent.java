@@ -1,7 +1,5 @@
 package ua.cooperok.etsy.dagger.components;
 
-import android.content.SharedPreferences;
-
 import com.google.gson.Gson;
 
 import dagger.Component;
@@ -21,8 +19,6 @@ public interface NetComponent extends AppComponent {
     Retrofit getRetrofit();
 
     OkHttpClient getOkHttpClient();
-
-    SharedPreferences getSharedPreferences();
 
     Cache getCache();
 

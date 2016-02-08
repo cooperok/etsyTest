@@ -30,13 +30,13 @@ public class NetDataProvider implements IDataProvider {
 
     @Override
     public void requestListing(long listingId, final Callback<Listing> callback) {
-        Call<Result<Listing>> call = mService.getListing(ApiHelper.API_KEY, listingId);
+        Call<Result<Listing>> call = mService.getListing(listingId, ApiHelper.API_KEY);
         enqueueCall(call, callback);
     }
 
     @Override
     public void requestListingImages(long listingId, Callback<List<Image>> callback) {
-        Call<Result<Image>> call = mService.getListingImages(ApiHelper.API_KEY, listingId);
+        Call<Result<Image>> call = mService.getListingImages(listingId, ApiHelper.API_KEY);
         enqueueCallForList(call, callback);
     }
 
@@ -53,7 +53,12 @@ public class NetDataProvider implements IDataProvider {
     }
 
     @Override
-    public void requestSavedList(long offset, long limit, Callback<List<Listing>> callback) {
+    public void requestSavedList(int offset, int limit, Callback<List<Listing>> callback) {
+        //This functionality is not required, but it can exist
+    }
+
+    @Override
+    public void checkListingInSavedList(long listingId, Callback<Boolean> callback) {
         //This functionality is not required, but it can exist
     }
 
@@ -63,7 +68,7 @@ public class NetDataProvider implements IDataProvider {
     }
 
     @Override
-    public void removeListingToSavedList(long listingId) {
+    public void removeListingFromSavedList(long listingId) {
         //This functionality is not required, but it can exist
     }
 

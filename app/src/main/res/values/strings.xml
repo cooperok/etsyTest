@@ -10,5 +10,9 @@
     <string name="listing_show_in_browser">Open in browser</string>
     <string name="listing_quantity_string">Quantity: %d</string>
     <string name="listing_price_string">Price: %1$s %2$s</string>
+    <string name="listings_not_found">Listings not found</string>
+    <string name="listing_detail_toolbar">Listing details</string>
+    <string name="action_save_listing">Save listing</string>
+    <string name="action_remove_listing">Remove from saved list</string>
 
 </resources>

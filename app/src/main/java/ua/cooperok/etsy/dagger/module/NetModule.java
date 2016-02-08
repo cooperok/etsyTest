@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
 
 import dagger.Module;
 import dagger.Provides;
@@ -23,12 +25,6 @@ public class NetModule {
 
     public NetModule(String baseUrl) {
         this.mBaseUrl = baseUrl;
-    }
-
-    @Provides
-        // Application reference must come from AppModule.class
-    SharedPreferences providesSharedPreferences(Application application) {
-        return PreferenceManager.getDefaultSharedPreferences(application);
     }
 
     @Provides

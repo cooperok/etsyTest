@@ -120,8 +120,8 @@ public class ViewModule {
     }
 
     @Provides
-    IListingDetailPresenter getListingDetailPresenter(IListingDetailView view) {
-        return new ListDetailPresenter(view);
+    IListingDetailPresenter getListingDetailPresenter(IListingDetailView view, DataProvider dataProvider) {
+        return new ListDetailPresenter(view, dataProvider);
     }
 
 }

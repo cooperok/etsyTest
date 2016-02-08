@@ -15,10 +15,10 @@ public interface EtsyService {
     Call<Result<Category>> getCategories(@Query("api_key") String apiKey);
 
     @GET("/v2/listings/{listingId}")
-    Call<Result<Listing>> getListing(@Query("api_key") String apiKey, @Path("listingId") long listingId);
+    Call<Result<Listing>> getListing(@Path("listingId") long listingId, @Query("api_key") String apiKey);
 
     @GET("/v2/listings/{listingId}/images")
-    Call<Result<Image>> getListingImages(@Query("api_key") String apiKey, @Path("listingId") long listingId);
+    Call<Result<Image>> getListingImages(@Path("listingId") long listingId, @Query("api_key") String apiKey);
 
     @GET("/v2/listings/active")
     Call<Result<Listing>> getListings(@Query("api_key") String apiKey, @Query("category") String categoryName, @Query("keywords") String keywords);

@@ -1,15 +1,12 @@
 package ua.cooperok.etsy.view;
 
-import ua.cooperok.etsy.data.model.Listing;
-
 public interface IListingView {
 
     /**
-     * Оповещает об изменении состояния товара, добавлен либо удален из списка сохраненных товаров
+     * Notifying about changing state of listing, it's added to saved list or it's removed from it
      *
-     * @param listing товар, состояние которого было изменено
-     * @param saved   состояние, true - товар был добавлен в список, false - товар был удален из списка
+     * @param saved state, true - if listing was saved, false - if listing was removed
      */
-    void onListingSavedStateChanged(Listing listing, boolean saved);
+    void onListingSavedStateChanged(boolean saved);
 
 }

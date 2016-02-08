@@ -79,7 +79,7 @@ public class SavedListingsFragment extends BaseFragment implements ISavedListing
     }
 
     @Override
-    public void onListingSavedStateChanged(Listing listing, boolean saved) {
+    public void onListingSavedStateChanged(boolean saved) {
 
     }
 }

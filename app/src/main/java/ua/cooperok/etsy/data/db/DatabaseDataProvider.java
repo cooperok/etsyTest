@@ -24,7 +24,7 @@ public class DatabaseDataProvider implements IDataProvider {
     }
 
     @Override
-    public void requestListings(Category categoryId, String search, int offset, int limit, Callback<List<Listing>> callback) {
+    public void requestListings(Category category, String search, int offset, int limit, Callback<List<Listing>> callback) {
 
     }
 
@@ -34,7 +34,12 @@ public class DatabaseDataProvider implements IDataProvider {
     }
 
     @Override
-    public void requestSavedList(long offset, long limit, Callback<List<Listing>> callback) {
+    public void requestSavedList(int offset, int limit, Callback<List<Listing>> callback) {
+
+    }
+
+    @Override
+    public void checkListingInSavedList(long listingId, Callback<Boolean> callback) {
 
     }
 
@@ -44,7 +49,7 @@ public class DatabaseDataProvider implements IDataProvider {
     }
 
     @Override
-    public void removeListingToSavedList(long listingId) {
+    public void removeListingFromSavedList(long listingId) {
 
     }
 }

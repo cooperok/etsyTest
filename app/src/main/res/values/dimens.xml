@@ -13,4 +13,13 @@
     <dimen name="listing_description_margin_bottom">10dp</dimen>
     <dimen name="listing_price_margin_bottom">10dp</dimen>
     <dimen name="listings_recycler_items_margin">10dp</dimen>
+    <dimen name="listing_detail_image">570dp</dimen>
+    <dimen name="listing_detail_image_margin_vertical">10dp</dimen>
+    <dimen name="listing_detail_data_layout_padding_horizontal">15dp</dimen>
+    <dimen name="listing_detail_data_layout_padding_top">15dp</dimen>
+    <dimen name="listing_detail_description_margin_top">15dp</dimen>
+    <dimen name="progress_wheel_size">50dp</dimen>
+    <dimen name="progress_wheel_bar_width">2dp</dimen>
+    <dimen name="progress_wheel_circle_radius">45dp</dimen>
+    <item name="progress_while_spin_speed" type="dimen" format="float">1.6</item>
 </resources>

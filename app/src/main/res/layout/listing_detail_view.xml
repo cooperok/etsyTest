@@ -1,13 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/data_layout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/listing_show_in_browser"
-        style="@style/show_in_browser_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/listing_show_in_browser" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/listing_detail_data_layout_padding_top">
+
+            <TextView
+                android:id="@+id/listing_detail_title"
+                style="@style/listing_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/listing_detail_data_layout_padding_horizontal"
+                android:layout_marginRight="@dimen/listing_detail_data_layout_padding_horizontal"
+                tools:text="Listing title with additional string" />
+
+            <ImageView
+                android:id="@+id/listing_detail_image"
+                android:layout_width="@dimen/listing_detail_image"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/listing_detail_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/listing_detail_image_margin_vertical"
+                android:layout_marginTop="@dimen/listing_detail_image_margin_vertical"
+                tools:src="@drawable/tools_listing_detail_image" />
+
+            <TextView
+                android:id="@+id/listing_detail_quantity"
+                style="@style/base_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/listing_detail_image"
+                android:layout_marginLeft="@dimen/listing_detail_data_layout_padding_horizontal"
+                android:layout_marginRight="@dimen/listing_detail_data_layout_padding_horizontal"
+                tools:text="Quantity: 3" />
+
+            <TextView
+                android:id="@+id/listing_detail_price"
+                style="@style/listing_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/listing_detail_image"
+                android:layout_marginLeft="@dimen/listing_detail_data_layout_padding_horizontal"
+                android:layout_marginRight="@dimen/listing_detail_data_layout_padding_horizontal"
+                tools:text="1 200.60 USD" />
+
+            <TextView
+                android:id="@+id/listing_detail_description"
+                style="@style/listing_detail_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/listing_detail_price"
+                android:layout_marginLeft="@dimen/listing_detail_data_layout_padding_horizontal"
+                android:layout_marginRight="@dimen/listing_detail_data_layout_padding_horizontal"
+                android:layout_marginTop="@dimen/listing_detail_description_margin_top"
+                tools:text="Two super-fine small quartz crystals. Both pieces are exceptional and undamaged, with SUPER-reflectivity\n\nLength: 1-3\/81-1\/4.\n\nDiameter: 11\/16 and 7\/16\." />
+
+            <TextView
+                android:id="@+id/listing_show_in_browser"
+                style="@style/show_in_browser_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/listing_detail_description"
+                android:layout_marginEnd="@dimen/listing_detail_data_layout_padding_horizontal"
+                android:layout_marginRight="@dimen/listing_detail_data_layout_padding_horizontal"
+                android:text="@string/listing_show_in_browser" />
+        </RelativeLayout>
+
+    </FrameLayout>
+</ScrollView>

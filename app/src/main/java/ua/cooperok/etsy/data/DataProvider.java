@@ -44,7 +44,13 @@ public class DataProvider implements IDataProvider {
     }
 
     @Override
-    public void requestSavedList(long offset, long limit, Callback<List<Listing>> callback) {
+    public void requestSavedList(int offset, int limit, Callback<List<Listing>> callback) {
+        //this functionality available only locally
+        mDbProvider.requestSavedList(offset, limit, callback);
+    }
+
+    @Override
+    public void checkListingInSavedList(long listingId, Callback<Boolean> callback) {
 
     }
 
@@ -54,7 +60,7 @@ public class DataProvider implements IDataProvider {
     }
 
     @Override
-    public void removeListingToSavedList(long listingId) {
+    public void removeListingFromSavedList(long listingId) {
 
     }
 

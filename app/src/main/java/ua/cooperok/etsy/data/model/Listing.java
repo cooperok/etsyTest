@@ -10,10 +10,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Товар
- */
 public class Listing implements Parcelable {
+
+    private OnImagesInfoLoadedListener mListener;
 
     @SerializedName("listing_id")
     @Expose
@@ -78,6 +77,7 @@ public class Listing implements Parcelable {
         mTitle = title;
         mPrice = price;
         mCurrency = currency;
+        mImages = new ArrayList<>();
     }
 
     public long getCategoryId() {
@@ -144,8 +144,47 @@ public class Listing implements Parcelable {
         return mImages;
     }
 
+    public Image getMainImage() {
+        if (mImages != null && !mImages.isEmpty()) {
+            return mImages.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * As images loading separately here is ability to know when they being downloaded
+     *
+     * @param listener
+     */
+    public void setOnImagesInfoLoadListener(OnImagesInfoLoadedListener listener) {
+        mListener = listener;
+    }
+
     public void addImage(Image image) {
-        mImages.add(image);
+        if (image != null) {
+            if (mImages == null) {
+                mImages = new ArrayList<>();
+            }
+            mImages.add(image);
+            dispathImagesLoad();
+        }
+    }
+
+    public void addImages(List<Image> data) {
+        if (data != null) {
+            if (mImages == null) {
+                mImages = new ArrayList<>();
+            }
+            mImages.addAll(data);
+            dispathImagesLoad();
+        }
+    }
+
+    private void dispathImagesLoad() {
+        if (mListener != null) {
+            mListener.onImagesInfoLoaded();
+        }
     }
 
     @Override
@@ -179,5 +218,9 @@ public class Listing implements Parcelable {
             return new Listing[size];
         }
     };
+
+    public interface OnImagesInfoLoadedListener {
+        void onImagesInfoLoaded();
+    }
 
 }
