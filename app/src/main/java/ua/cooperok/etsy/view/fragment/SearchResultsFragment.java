@@ -1,18 +1,16 @@
 package ua.cooperok.etsy.view.fragment;
 
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import ua.cooperok.etsy.R;
 import ua.cooperok.etsy.dagger.components.DaggerViewComponent;
 import ua.cooperok.etsy.dagger.components.DataServiceComponent;
@@ -38,6 +36,9 @@ public class SearchResultsFragment extends ListingsLoadingFragment implements IS
 
     @Inject
     ISearchResultPresenter mPresenter;
+
+    @Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeToRefresh;
 
     private ListingsAdapter mAdapter;
 
@@ -72,6 +73,12 @@ public class SearchResultsFragment extends ListingsLoadingFragment implements IS
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new MarginDecoration(getResources().getDimensionPixelOffset(R.dimen.listings_recycler_items_margin)));
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), COLUMNS_SIZE));
+        mSwipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.searchListings(mCategory, mKeywords);
+            }
+        });
     }
 
     @Override
@@ -111,7 +118,9 @@ public class SearchResultsFragment extends ListingsLoadingFragment implements IS
 
     @Override
     public void showSearchResult(List<Listing> listings) {
+        mSwipeToRefresh.setRefreshing(false);
         mListings = listings;
+        mAdapter.clear();
         mAdapter.addAll(listings);
     }
 
@@ -128,16 +137,19 @@ public class SearchResultsFragment extends ListingsLoadingFragment implements IS
 
     @Override
     public void hidePreload() {
+        mSwipeToRefresh.setRefreshing(false);
         hideProgress();
     }
 
     @Override
     public void onEmptySearch() {
+        mSwipeToRefresh.setRefreshing(false);
         onEmpty();
     }
 
     @Override
     public void onLoadError() {
+        mSwipeToRefresh.setRefreshing(false);
         onError();
     }
 
