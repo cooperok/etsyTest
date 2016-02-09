@@ -38,12 +38,28 @@ public class ListDetailPresenter implements IListingDetailPresenter {
     @Override
     public void onSaveListingClick(Listing listing) {
         mDataProvider.addListingToSavedList(listing.getId());
+        mView.onListingSavedStateChanged(true);
     }
 
     @Override
     public void onRemoveFromSavedClick(Listing listing) {
         mDataProvider.removeListingFromSavedList(listing.getId());
         mView.onListingSavedStateChanged(false);
+    }
+
+    @Override
+    public void checkListingState(Listing listing) {
+        mDataProvider.checkListingInSavedList(listing.getId(), new Callback<Boolean>() {
+            @Override
+            public void onDataReceived(Boolean data) {
+                mView.onListingSavedStateChanged(data);
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
     }
 
     @Override
@@ -58,11 +74,11 @@ public class ListDetailPresenter implements IListingDetailPresenter {
 
     @Override
     public void addListingToSavedList(Listing listing) {
-
+        mDataProvider.addListingToSavedList(listing.getId());
     }
 
     @Override
     public void removeListingFromSavedList(Listing listing) {
-
+        mDataProvider.removeListingFromSavedList(listing.getId());
     }
 }

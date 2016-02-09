@@ -4,6 +4,7 @@ import java.util.List;
 
 import ua.cooperok.etsy.data.Callback;
 import ua.cooperok.etsy.data.DataProvider;
+import ua.cooperok.etsy.data.model.Image;
 import ua.cooperok.etsy.data.model.Listing;
 import ua.cooperok.etsy.presenter.ISavedListingsPresenter;
 import ua.cooperok.etsy.view.ISavedListingsView;
@@ -37,6 +38,7 @@ public class SavedListingPresenter implements ISavedListingsPresenter {
                 } else {
                     mView.setListings(data);
                 }
+                loadListingsImages(data);
             }
 
             @Override
@@ -45,6 +47,23 @@ public class SavedListingPresenter implements ISavedListingsPresenter {
                 mView.onLoadError();
             }
         });
+    }
+
+    private void loadListingsImages(List<Listing> data) {
+        //for every listing sending request for images
+        for (final Listing listing : data) {
+            mDataProvider.requestListingImages(listing.getId(), new Callback<List<Image>>() {
+                @Override
+                public void onDataReceived(List<Image> data) {
+                    listing.addImages(data);
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+        }
     }
 
     @Override
@@ -62,6 +81,11 @@ public class SavedListingPresenter implements ISavedListingsPresenter {
 
             }
         });
+    }
+
+    @Override
+    public void onListingClick(Listing listing) {
+        mView.showListingDetailView(listing);
     }
 
     @Override

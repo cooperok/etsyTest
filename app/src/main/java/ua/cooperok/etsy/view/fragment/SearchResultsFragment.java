@@ -5,10 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,7 +13,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
 import ua.cooperok.etsy.R;
 import ua.cooperok.etsy.dagger.components.DaggerViewComponent;
 import ua.cooperok.etsy.dagger.components.DataServiceComponent;
@@ -29,10 +25,10 @@ import ua.cooperok.etsy.presenter.ISearchResultPresenter;
 import ua.cooperok.etsy.view.ISearchResultView;
 import ua.cooperok.etsy.view.MarginDecoration;
 import ua.cooperok.etsy.view.activity.MainActivity;
+import ua.cooperok.etsy.view.adapter.BaseRecyclerAdapter;
 import ua.cooperok.etsy.view.adapter.ListingsAdapter;
-import ua.cooperok.etsy.view.widget.ProgressWheel;
 
-public class SearchResultsFragment extends BaseFragment implements ISearchResultView, ListingsAdapter.OnListingClickListener {
+public class SearchResultsFragment extends ListingsLoadingFragment implements ISearchResultView, ListingsAdapter.OnListingClickListener {
 
     private static final String KEYWORDS_KEY = "keywords";
 
@@ -40,23 +36,10 @@ public class SearchResultsFragment extends BaseFragment implements ISearchResult
 
     private static final int COLUMNS_SIZE = 2;
 
-    private static final String KEY_LISTINGS = "listings";
-
     @Inject
     ISearchResultPresenter mPresenter;
 
-    @Bind(R.id.listings_recycler)
-    RecyclerView mRecyclerView;
-
-    @Bind(R.id.progress_wheel)
-    ProgressWheel mProgressWheel;
-
-    @Bind(R.id.listings_message)
-    TextView mMessage;
-
     private ListingsAdapter mAdapter;
-
-    private List<Listing> mListings;
 
     private String mKeywords;
 
@@ -79,31 +62,6 @@ public class SearchResultsFragment extends BaseFragment implements ISearchResult
             mCategory = getArguments().getParcelable(CATEGORY_KEY);
         } else {
             throw new IllegalArgumentException("Must be created through newInstance");
-        }
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        //trying to restore data and if there is nothing loading them
-        if (savedInstanceState == null) {
-            mPresenter.searchListings(mCategory, mKeywords);
-        } else {
-            mListings = savedInstanceState.getParcelableArrayList(KEY_LISTINGS);
-            if (mListings != null) {
-                mAdapter.clear();
-                showSearchResult(mListings);
-            } else {
-                mPresenter.searchListings(mCategory, mKeywords);
-            }
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (mListings != null) {
-            outState.putParcelableArrayList(KEY_LISTINGS, (ArrayList<? extends Parcelable>) mListings);
         }
     }
 
@@ -158,36 +116,45 @@ public class SearchResultsFragment extends BaseFragment implements ISearchResult
     }
 
     @Override
-    public void onEmptySearch() {
-        mRecyclerView.setVisibility(View.GONE);
-        mProgressWheel.setVisibility(View.GONE);
-        mMessage.setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public void onMoreListingsLoaded(List<Listing> listings) {
+        mListings.addAll(listings);
         mAdapter.addAll(listings);
     }
 
     @Override
     public void showPreload() {
-        mRecyclerView.setVisibility(View.GONE);
-        mProgressWheel.spin();
-        mProgressWheel.setVisibility(View.VISIBLE);
-        mMessage.setVisibility(View.GONE);
+        showProgress();
     }
 
     @Override
     public void hidePreload() {
-        mRecyclerView.setVisibility(View.VISIBLE);
-        mProgressWheel.setVisibility(View.GONE);
-        mMessage.setVisibility(View.GONE);
+        hideProgress();
+    }
+
+    @Override
+    public void onEmptySearch() {
+        onEmpty();
     }
 
     @Override
     public void onLoadError() {
-        mProgressWheel.setVisibility(View.GONE);
-        Toast.makeText(getContext(), R.string.load_error, Toast.LENGTH_LONG).show();
+        onError();
     }
 
+    @Override
+    protected BaseRecyclerAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    @Override
+    protected void setListings(List<Listing> listings) {
+        mListings = listings;
+        mAdapter.clear();
+        mAdapter.addAll(listings);
+    }
+
+    @Override
+    protected void requestListings() {
+        mPresenter.searchListings(mCategory, mKeywords);
+    }
 }

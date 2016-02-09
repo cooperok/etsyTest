@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -58,6 +59,11 @@ public class ListingDetailFragment extends BaseFragment implements IListingDetai
     @Bind(R.id.listing_show_in_browser)
     TextView mShowInBrowser;
 
+    @Bind(R.id.listing_detail_save)
+    ImageView mSave;
+
+    private boolean mListingState;
+
     public static ListingDetailFragment getInstance(Listing listing) {
         ListingDetailFragment fragment = new ListingDetailFragment();
         Bundle bundle = new Bundle();
@@ -74,42 +80,26 @@ public class ListingDetailFragment extends BaseFragment implements IListingDetai
         } else {
             throw new IllegalArgumentException("Must be created through newInstance");
         }
-
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(getString(R.string.listing_detail_toolbar));
-
-        }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.listing_detail, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_save:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override
     protected void updateView(View view) {
+        mPresenter.checkListingState(mListing);
         mTitle.setText(Html.fromHtml(mListing.getTitle()));
         mDescription.setText(Html.fromHtml(mListing.getDescription()));
         String price = NumberFormat.getInstance().format(mListing.getPrice()) + " " + mListing.getCurrency();
         mPrice.setText(price);
         mQuantity.setText(String.format(getString(R.string.listing_quantity_string), mListing.getQuantity()));
+        mSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListingState) {
+                    mPresenter.onRemoveFromSavedClick(mListing);
+                } else {
+                    mPresenter.onSaveListingClick(mListing);
+                }
+            }
+        });
         mShowInBrowser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,10 +168,12 @@ public class ListingDetailFragment extends BaseFragment implements IListingDetai
 
     @Override
     public void onListingSavedStateChanged(boolean saved) {
+        mListingState = saved;
+        mSave.setVisibility(View.VISIBLE);
         if (saved) {
-
+            mSave.setImageResource(android.R.drawable.star_on);
         } else {
-
+            mSave.setImageResource(android.R.drawable.star_off);
         }
     }
 

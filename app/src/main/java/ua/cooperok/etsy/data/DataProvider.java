@@ -51,17 +51,20 @@ public class DataProvider implements IDataProvider {
 
     @Override
     public void checkListingInSavedList(long listingId, Callback<Boolean> callback) {
-
+        //this functionality available only locally
+        mDbProvider.checkListingInSavedList(listingId, callback);
     }
 
     @Override
     public void addListingToSavedList(long listingId) {
-
+        //this functionality available only locally
+        mDbProvider.addListingToSavedList(listingId);
     }
 
     @Override
     public void removeListingFromSavedList(long listingId) {
-
+        //this functionality available only locally
+        mDbProvider.removeListingFromSavedList(listingId);
     }
 
     /**

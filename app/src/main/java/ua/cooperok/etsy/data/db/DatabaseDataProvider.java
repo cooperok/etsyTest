@@ -56,9 +56,24 @@ public class DatabaseDataProvider implements IDataProvider {
     @Override
     public void requestSavedList(int offset, int limit, Callback<List<Listing>> callback) {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
-        Cursor c = db.rawQuery(DatabaseHelper.SELECT_SAVED_LISTINGS, new String[]{String.valueOf(offset), String.valueOf(limit)});
+        String query = String.format(DatabaseHelper.SELECT_SAVED_LISTINGS, offset, limit);
+        Cursor c = db.rawQuery(query, null);
         if (c != null) {
-            callback.onDataReceived(createListings(c));
+            if (c.moveToFirst()) {
+                List<Integer> ids = new ArrayList<>();
+                do {
+                    ids.add(c.getInt(c.getColumnIndex(DatabaseHelper.KEY_LISTING_ID)));
+                } while (c.moveToNext());
+
+                String idsS = ids.toString();
+                Cursor cc = db.rawQuery(String.format(DatabaseHelper.SELECT_LISTINGS_BY_IDS, idsS.substring(1, idsS.length() - 1)), null);
+                if (cc != null) {
+                    callback.onDataReceived(createListings(cc));
+                    cc.close();
+                } else {
+                    callback.onError();
+                }
+            }
             c.close();
         } else {
             callback.onError();
@@ -144,13 +159,9 @@ public class DatabaseDataProvider implements IDataProvider {
     @Override
     public void checkListingInSavedList(long listingId, Callback<Boolean> callback) {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
-        Cursor c = db.rawQuery(DatabaseHelper.SELECT_LISTING, new String[]{String.valueOf(listingId)});
+        Cursor c = db.rawQuery(DatabaseHelper.SELECT_SAVED_LISTING, new String[]{String.valueOf(listingId)});
         if (c != null) {
-            Boolean check = false;
-            if (c.moveToFirst()) {
-                check = c.getInt(c.getColumnIndex(DatabaseHelper.KEY_SAVED_STATE)) == 1;
-            }
-            callback.onDataReceived(check);
+            callback.onDataReceived(c.moveToFirst());
             c.close();
         } else {
             callback.onError();
@@ -162,17 +173,15 @@ public class DatabaseDataProvider implements IDataProvider {
     public void addListingToSavedList(long listingId) {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(DatabaseHelper.KEY_SAVED_STATE, 1);
-        db.update(DatabaseHelper.TABLE_LISTINGS, cv, "listing=?", new String[]{String.valueOf(listingId)});
+        cv.put(DatabaseHelper.KEY_LISTING_ID, listingId);
+        db.insertWithOnConflict(DatabaseHelper.TABLE_SAVED_LISTINGS, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
         db.close();
     }
 
     @Override
     public void removeListingFromSavedList(long listingId) {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(DatabaseHelper.KEY_SAVED_STATE, 0);
-        db.update(DatabaseHelper.TABLE_LISTINGS, cv, "listing=?", new String[]{String.valueOf(listingId)});
+        db.delete(DatabaseHelper.TABLE_SAVED_LISTINGS, DatabaseHelper.KEY_LISTING_ID + "=?", new String[]{String.valueOf(listingId)});
         db.close();
     }
 

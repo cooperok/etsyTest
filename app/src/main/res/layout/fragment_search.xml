@@ -9,6 +9,7 @@
         android:id="@+id/categories_spinner"
         android:layout_width="@dimen/search_edit_width"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/categories_spinner_margin_top"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal" />

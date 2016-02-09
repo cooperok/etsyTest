@@ -4,7 +4,7 @@ import java.util.List;
 
 import ua.cooperok.etsy.data.model.Listing;
 
-public interface ISavedListingsView extends IDataLoadingView, IListingView {
+public interface ISavedListingsView extends IDataLoadingView {
 
     void setListings(List<Listing> listings);
 

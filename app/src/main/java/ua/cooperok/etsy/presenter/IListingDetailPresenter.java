@@ -10,4 +10,6 @@ public interface IListingDetailPresenter extends IListingPresenter, IBasePresent
 
     void onRemoveFromSavedClick(Listing listing);
 
+    void checkListingState(Listing listing);
+
 }
