@@ -89,16 +89,6 @@ public class SavedListingPresenter implements ISavedListingsPresenter {
     }
 
     @Override
-    public void onResume() {
-
-    }
-
-    @Override
-    public void onPause() {
-
-    }
-
-    @Override
     public void addListingToSavedList(Listing listing) {
         mDataProvider.addListingToSavedList(listing.getId());
     }

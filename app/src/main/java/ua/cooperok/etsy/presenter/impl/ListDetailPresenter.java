@@ -63,16 +63,6 @@ public class ListDetailPresenter implements IListingDetailPresenter {
     }
 
     @Override
-    public void onResume() {
-
-    }
-
-    @Override
-    public void onPause() {
-
-    }
-
-    @Override
     public void addListingToSavedList(Listing listing) {
         mDataProvider.addListingToSavedList(listing.getId());
     }

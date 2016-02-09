@@ -52,14 +52,4 @@ public class ListingSearchPresenter implements IListingSearchPresenter {
         mCategory = category;
     }
 
-    @Override
-    public void onResume() {
-
-    }
-
-    @Override
-    public void onPause() {
-
-    }
-
 }

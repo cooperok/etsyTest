@@ -9,14 +9,4 @@ public class MainTabsPresenter implements IMainTabsPresenter {
 
     }
 
-    @Override
-    public void onResume() {
-
-    }
-
-    @Override
-    public void onPause() {
-
-    }
-
 }

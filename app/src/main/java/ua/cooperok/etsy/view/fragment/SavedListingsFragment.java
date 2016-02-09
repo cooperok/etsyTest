@@ -14,7 +14,6 @@ import ua.cooperok.etsy.dagger.components.DataServiceComponent;
 import ua.cooperok.etsy.dagger.components.ViewComponent;
 import ua.cooperok.etsy.dagger.module.ViewModule;
 import ua.cooperok.etsy.data.model.Listing;
-import ua.cooperok.etsy.presenter.IBasePresenter;
 import ua.cooperok.etsy.presenter.ISavedListingsPresenter;
 import ua.cooperok.etsy.view.ISavedListingsView;
 import ua.cooperok.etsy.view.MarginDecoration;
@@ -47,11 +46,6 @@ public class SavedListingsFragment extends ListingsLoadingFragment implements IS
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_saved_listings;
-    }
-
-    @Override
-    protected IBasePresenter getPresenter() {
-        return mPresenter;
     }
 
     @Override

@@ -97,16 +97,6 @@ public class SearchResultPresenter implements ISearchResultPresenter {
         });
     }
 
-    @Override
-    public void onResume() {
-
-    }
-
-    @Override
-    public void onPause() {
-
-    }
-
     public void setLimit(int limit) {
         mLimit = limit;
     }

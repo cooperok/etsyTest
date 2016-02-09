@@ -21,11 +21,4 @@ public class MainActivityPresenter implements IMainActivityPresenter {
         mView.showMainTabsView();
     }
 
-    @Override
-    public void onResume() {
-    }
-
-    @Override
-    public void onPause() {
-    }
 }

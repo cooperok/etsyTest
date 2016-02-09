@@ -1,6 +1,6 @@
 package ua.cooperok.etsy.presenter;
 
-public interface IMainActivityPresenter extends IBasePresenter {
+public interface IMainActivityPresenter {
     void onBackPressed();
     void onCreate();
 }

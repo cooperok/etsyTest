@@ -2,7 +2,7 @@ package ua.cooperok.etsy.presenter;
 
 import ua.cooperok.etsy.data.model.Listing;
 
-public interface ISavedListingsPresenter extends IListingPresenter, IBasePresenter {
+public interface ISavedListingsPresenter extends IListingPresenter {
 
     /**
      * Loading saved list listings

@@ -25,7 +25,6 @@ import ua.cooperok.etsy.dagger.components.DataServiceComponent;
 import ua.cooperok.etsy.dagger.components.ViewComponent;
 import ua.cooperok.etsy.dagger.module.ViewModule;
 import ua.cooperok.etsy.data.model.Category;
-import ua.cooperok.etsy.presenter.IBasePresenter;
 import ua.cooperok.etsy.presenter.IListingSearchPresenter;
 import ua.cooperok.etsy.view.IListingSearchView;
 import ua.cooperok.etsy.view.activity.MainActivity;
@@ -106,11 +105,6 @@ public class SearchFragment extends BaseFragment implements IListingSearchView {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_search;
-    }
-
-    @Override
-    protected IBasePresenter getPresenter() {
-        return mPresenter;
     }
 
     @Override

@@ -18,7 +18,6 @@ import ua.cooperok.etsy.dagger.components.ViewComponent;
 import ua.cooperok.etsy.dagger.module.ViewModule;
 import ua.cooperok.etsy.data.model.Category;
 import ua.cooperok.etsy.data.model.Listing;
-import ua.cooperok.etsy.presenter.IBasePresenter;
 import ua.cooperok.etsy.presenter.ISearchResultPresenter;
 import ua.cooperok.etsy.view.ISearchResultView;
 import ua.cooperok.etsy.view.MarginDecoration;
@@ -84,11 +83,6 @@ public class SearchResultsFragment extends ListingsLoadingFragment implements IS
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_search_result;
-    }
-
-    @Override
-    protected IBasePresenter getPresenter() {
-        return mPresenter;
     }
 
     @Override

@@ -44,6 +44,7 @@ public class ListingsAdapter extends BaseRecyclerAdapter<Listing, ListingsAdapte
         holder.description.setText(Html.fromHtml(listing.getDescription()));
         holder.price.setText(String.format(mPriceString, NumberFormat.getInstance(new Locale("en-US", "US")).format(listing.getPrice()), listing.getCurrency()));
         holder.quantity.setText(String.format(mQuantityString, listing.getQuantity()));
+        holder.image.setImageDrawable(null);
         if (listing.getMainImage() != null) {
             Picasso.with(holder.image.getContext()).load(listing.getMainImage().getUrl75x75()).into(holder.image);
         } else {

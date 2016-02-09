@@ -3,13 +3,7 @@ package ua.cooperok.etsy.view.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,7 +22,6 @@ import ua.cooperok.etsy.dagger.components.ViewComponent;
 import ua.cooperok.etsy.dagger.module.ViewModule;
 import ua.cooperok.etsy.data.model.Image;
 import ua.cooperok.etsy.data.model.Listing;
-import ua.cooperok.etsy.presenter.IBasePresenter;
 import ua.cooperok.etsy.presenter.IListingDetailPresenter;
 import ua.cooperok.etsy.view.IListingDetailView;
 
@@ -131,11 +124,6 @@ public class ListingDetailFragment extends BaseFragment implements IListingDetai
     @Override
     protected int getLayoutId() {
         return R.layout.listing_detail_view;
-    }
-
-    @Override
-    protected IBasePresenter getPresenter() {
-        return mPresenter;
     }
 
     @Override

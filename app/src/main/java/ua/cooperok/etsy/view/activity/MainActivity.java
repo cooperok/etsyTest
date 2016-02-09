@@ -32,18 +32,6 @@ public class MainActivity extends BaseActivity implements IMainActivityView {
     }
 
     @Override
-    protected void onResume() {
-        mPresenter.onResume();
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        mPresenter.onPause();
-        super.onPause();
-    }
-
-    @Override
     protected void setUpComponent(DataServiceComponent component) {
         ViewComponent viewComponent = DaggerViewComponent.builder()
                 .dataServiceComponent(component)
