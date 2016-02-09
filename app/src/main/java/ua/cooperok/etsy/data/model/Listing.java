@@ -46,14 +46,6 @@ public class Listing implements Parcelable {
     @Expose
     private String mUrl;
 
-    @SerializedName("creation_tsz")
-    @Expose
-    private long mCreationTsz;
-
-    @SerializedName("ending_tsz")
-    @Expose
-    private long mEndingTsz;
-
     private List<Image> mImages;
 
     public Listing(Parcel in) {
@@ -65,8 +57,6 @@ public class Listing implements Parcelable {
         mCurrency = in.readString();
         mQuantity = in.readInt();
         mUrl = in.readString();
-        mCreationTsz = in.readLong();
-        mEndingTsz = in.readLong();
         mImages = new ArrayList<>();
         in.readTypedList(mImages, Image.CREATOR);
     }
@@ -116,28 +106,12 @@ public class Listing implements Parcelable {
         mQuantity = quantity;
     }
 
-    public long getEndingTsz() {
-        return mEndingTsz;
-    }
-
-    public void setEndingTsz(long endingTsz) {
-        mEndingTsz = endingTsz;
-    }
-
     public String getDescription() {
         return mDescription;
     }
 
     public void setDescription(String description) {
         mDescription = description;
-    }
-
-    public long getCreationTsz() {
-        return mCreationTsz;
-    }
-
-    public void setCreationTsz(long creationTsz) {
-        mCreationTsz = creationTsz;
     }
 
     public List<Image> getImages() {
@@ -202,8 +176,6 @@ public class Listing implements Parcelable {
         dest.writeString(mCurrency);
         dest.writeInt(mQuantity);
         dest.writeString(mUrl);
-        dest.writeLong(mCreationTsz);
-        dest.writeLong(mEndingTsz);
         dest.writeTypedList(mImages);
     }
 

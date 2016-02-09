@@ -64,6 +64,16 @@ public class SavedListingsFragment extends BaseFragment implements ISavedListing
     }
 
     @Override
+    public void onEmptyResult() {
+
+    }
+
+    @Override
+    public void onMoreListingsLoaded(List<Listing> listings) {
+
+    }
+
+    @Override
     public void showPreload() {
 
     }

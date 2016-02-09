@@ -6,6 +6,7 @@ import dagger.Component;
 import ua.cooperok.etsy.dagger.DataScope;
 import ua.cooperok.etsy.dagger.module.DataServiceModule;
 import ua.cooperok.etsy.data.DataProvider;
+import ua.cooperok.etsy.data.db.DatabaseHelper;
 
 @DataScope
 @Component(
@@ -15,5 +16,7 @@ import ua.cooperok.etsy.data.DataProvider;
 public interface DataServiceComponent {
 
     DataProvider getDataProvider();
+
+    DatabaseHelper getDatabaseHelper();
 
 }

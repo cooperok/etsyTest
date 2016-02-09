@@ -1,6 +1,7 @@
 package ua.cooperok.etsy.dagger.module;
 
 import android.app.Application;
+import android.content.Context;
 
 import javax.inject.Singleton;
 
@@ -20,6 +21,12 @@ public class AppModule {
     @Provides
     Application getApplication() {
         return mApp;
+    }
+
+    @Singleton
+    @Provides
+    Context getContext() {
+        return mApp.getApplicationContext();
     }
 
 }

@@ -110,8 +110,8 @@ public class ViewModule {
     }
 
     @Provides
-    ISavedListingsPresenter getSavedListingPresenter(ISavedListingsView view) {
-        return new SavedListingPresenter(view);
+    ISavedListingsPresenter getSavedListingPresenter(ISavedListingsView view, DataProvider dataProvider) {
+        return new SavedListingPresenter(view, dataProvider);
     }
 
     @Provides

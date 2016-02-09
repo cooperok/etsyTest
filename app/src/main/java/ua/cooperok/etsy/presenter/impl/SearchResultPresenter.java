@@ -2,8 +2,6 @@ package ua.cooperok.etsy.presenter.impl;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import ua.cooperok.etsy.data.Callback;
 import ua.cooperok.etsy.data.DataProvider;
 import ua.cooperok.etsy.data.model.Category;
@@ -44,6 +42,7 @@ public class SearchResultPresenter implements ISearchResultPresenter {
     public void searchListings(Category catalog, String search) {
         mCategory = catalog;
         mKeywords = search;
+        mOffset = 0;
         mView.showPreload();
         mDataProvider.requestListings(catalog, search, mOffset, mLimit, new Callback<List<Listing>>() {
             @Override
@@ -68,7 +67,7 @@ public class SearchResultPresenter implements ISearchResultPresenter {
 
     private void loadListingsImages(List<Listing> data) {
         //for every listing sending request for images
-        for(final Listing listing : data) {
+        for (final Listing listing : data) {
             mDataProvider.requestListingImages(listing.getId(), new Callback<List<Image>>() {
                 @Override
                 public void onDataReceived(List<Image> data) {

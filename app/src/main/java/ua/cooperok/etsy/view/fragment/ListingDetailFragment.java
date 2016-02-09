@@ -25,6 +25,7 @@ import ua.cooperok.etsy.dagger.components.DaggerViewComponent;
 import ua.cooperok.etsy.dagger.components.DataServiceComponent;
 import ua.cooperok.etsy.dagger.components.ViewComponent;
 import ua.cooperok.etsy.dagger.module.ViewModule;
+import ua.cooperok.etsy.data.model.Image;
 import ua.cooperok.etsy.data.model.Listing;
 import ua.cooperok.etsy.presenter.IBasePresenter;
 import ua.cooperok.etsy.presenter.IListingDetailPresenter;
@@ -104,7 +105,7 @@ public class ListingDetailFragment extends BaseFragment implements IListingDetai
 
     @Override
     protected void updateView(View view) {
-        mTitle.setText(mListing.getTitle());
+        mTitle.setText(Html.fromHtml(mListing.getTitle()));
         mDescription.setText(Html.fromHtml(mListing.getDescription()));
         String price = NumberFormat.getInstance().format(mListing.getPrice()) + " " + mListing.getCurrency();
         mPrice.setText(price);
@@ -131,7 +132,10 @@ public class ListingDetailFragment extends BaseFragment implements IListingDetai
     }
 
     private void loadImage() {
-        Picasso.with(mImage.getContext()).load(mListing.getMainImage().getUrl570xN()).into(mImage);
+        Image image = mListing.getMainImage();
+        if (image != null) {
+            Picasso.with(mImage.getContext()).load(image.getUrl570xN()).into(mImage);
+        }
     }
 
     @Override

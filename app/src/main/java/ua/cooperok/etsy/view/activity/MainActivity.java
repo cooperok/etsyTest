@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import javax.inject.Inject;
 
 import ua.cooperok.etsy.R;
-import ua.cooperok.etsy.dagger.components.AppComponent;
 import ua.cooperok.etsy.dagger.components.DaggerViewComponent;
 import ua.cooperok.etsy.dagger.components.DataServiceComponent;
 import ua.cooperok.etsy.dagger.components.ViewComponent;

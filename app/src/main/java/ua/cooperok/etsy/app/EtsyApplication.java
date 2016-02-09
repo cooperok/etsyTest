@@ -1,6 +1,7 @@
 package ua.cooperok.etsy.app;
 
 import android.app.Application;
+import android.content.Context;
 
 import ua.cooperok.etsy.dagger.components.AppComponent;
 import ua.cooperok.etsy.dagger.components.DaggerAppComponent;
@@ -57,6 +58,10 @@ public class EtsyApplication extends Application {
 
     public static EtsyApplication getInstance() {
         return sInstance;
+    }
+
+    public static Context getContext() {
+        return sInstance.getApplicationContext();
     }
 
 }

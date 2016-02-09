@@ -10,4 +10,7 @@ public interface ISavedListingsView extends IDataLoadingView, IListingView {
 
     void showListingDetailView(Listing listing);
 
+    void onEmptyResult();
+
+    void onMoreListingsLoaded(List<Listing> listings);
 }
