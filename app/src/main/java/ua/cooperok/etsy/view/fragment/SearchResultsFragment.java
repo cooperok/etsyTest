@@ -63,6 +63,7 @@ public class SearchResultsFragment extends ListingsLoadingFragment implements IS
         } else {
             throw new IllegalArgumentException("Must be created through newInstance");
         }
+        setRetainInstance(true);
     }
 
     @Override

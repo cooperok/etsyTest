@@ -36,15 +36,17 @@ public abstract class ListingsLoadingFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //trying to restore data and if there is nothing loading them
-        if (savedInstanceState == null) {
-            requestListings();
-        } else {
+        if (mListings != null) {
+            setListings(mListings);
+        } else if (savedInstanceState != null) {
             mListings = savedInstanceState.getParcelableArrayList(KEY_LISTINGS);
             if (mListings != null) {
                 setListings(mListings);
             } else {
                 requestListings();
             }
+        } else {
+            requestListings();
         }
     }
 
