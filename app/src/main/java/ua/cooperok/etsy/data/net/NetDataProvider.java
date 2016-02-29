@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,6 +30,21 @@ public class NetDataProvider implements IDataProvider {
 
     private EtsyService mService;
 
+    /**
+     * Queue of calls to load images info
+     */
+    private LinkedList<Call<Result<Image>>> mImagesCalls;
+
+    /**
+     * Queue of listings that are waiting for images info
+     */
+    private LinkedList<Listing> mListings;
+
+    /**
+     * Callback that uses when all images info are loaded for all listings
+     */
+    private Callback<Void> mImagesCallback;
+
     public NetDataProvider(Retrofit retrofit) {
         mRetrofit = retrofit;
         mService = mRetrofit.create(EtsyService.class);
@@ -44,6 +60,19 @@ public class NetDataProvider implements IDataProvider {
     public void requestListingImages(long listingId, Callback<List<Image>> callback) {
         Call<Result<Image>> call = mService.getListingImages(listingId, ApiHelper.API_KEY);
         enqueueCallForList(call, callback, CacheService.DataType.IMAGES);
+    }
+
+    @Override
+    public void requestListingsImages(List<Listing> listings, Callback<Void> callback) {
+        mImagesCallback = callback;
+        mImagesCalls = new LinkedList<>();
+        mListings = new LinkedList<>();
+        for (Listing listing : listings) {
+            //fill in queues
+            mImagesCalls.add(mService.getListingImages(listing.getId(), ApiHelper.API_KEY));
+            mListings.add(listing);
+        }
+        loadImages();
     }
 
     @Override
@@ -76,6 +105,23 @@ public class NetDataProvider implements IDataProvider {
     @Override
     public void removeListingFromSavedList(long listingId) {
         //This functionality is not required, but it can exist
+    }
+
+    /**
+     * Retrieving image call from queue and execute it.
+     * Easiest way, loading is going synchronously one by one. It would be better to do it in parallel
+     */
+    private void loadImages() {
+        if (mImagesCalls.size() > 0) {
+            Call call = mImagesCalls.poll();
+            enqueueImageCall(call, new ImageCallback(call));
+        } else {
+            mImagesCallback.onDataReceived(null);
+        }
+    }
+
+    private void enqueueImageCall(Call<Result<Image>> call, retrofit2.Callback callback) {
+        call.enqueue(callback);
     }
 
     /**
@@ -142,14 +188,53 @@ public class NetDataProvider implements IDataProvider {
 
     /**
      * Launching service for caching loaded data to database
+     *
      * @param data
      * @param dataType
      */
     private void launchCacheService(List<Parcelable> data, CacheService.DataType dataType) {
-                Intent intent = new Intent(EtsyApplication.getContext(), CacheService.class);
-                intent.putParcelableArrayListExtra(CacheService.EXTRA_DATA, new ArrayList<>(data));
-                intent.putExtra(CacheService.EXTRA_DATA_TYPE, dataType.ordinal());
-                EtsyApplication.getContext().startService(intent);
+        Intent intent = new Intent(EtsyApplication.getContext(), CacheService.class);
+        intent.putParcelableArrayListExtra(CacheService.EXTRA_DATA, new ArrayList<>(data));
+        intent.putExtra(CacheService.EXTRA_DATA_TYPE, dataType.ordinal());
+        EtsyApplication.getContext().startService(intent);
+    }
+
+    /**
+     * Retrofit callback for loading images info
+     */
+    private class ImageCallback implements retrofit2.Callback<Result<Image>> {
+
+        private Call mCall;
+
+        ImageCallback(Call call) {
+            mCall = call;
+        }
+
+        @Override
+        public void onResponse(Response<Result<Image>> response) {
+            //Bad request could be when limit of requests per second is reached, so we need to resend this request
+            //this is easiest approach, without timeouts and so on
+            if (response.code() == 400) {
+                enqueueImageCall(mCall, this);
+            } else {
+                if (response.body() != null) {
+                    Listing listing = mListings.poll();
+                    listing.addImages(response.body().getResult());
+                }
+                finish();
+            }
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+            finish();
+        }
+
+        private void finish() {
+            mCall = null;
+            //after load request new call to execute
+            loadImages();
+        }
     }
 
 }

@@ -47,13 +47,6 @@ public class ListingsAdapter extends BaseRecyclerAdapter<Listing, ListingsAdapte
         holder.image.setImageDrawable(null);
         if (listing.getMainImage() != null) {
             Picasso.with(holder.image.getContext()).load(listing.getMainImage().getUrl75x75()).into(holder.image);
-        } else {
-            listing.setOnImagesInfoLoadListener(new Listing.OnImagesInfoLoadedListener() {
-                @Override
-                public void onImagesInfoLoaded() {
-                    notifyItemChanged(position);
-                }
-            });
         }
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override

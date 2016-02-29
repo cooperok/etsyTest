@@ -103,14 +103,6 @@ public class ListingDetailFragment extends BaseFragment implements IListingDetai
         });
         if (mListing.getMainImage() != null) {
             loadImage();
-        } else {
-            mListing.setOnImagesInfoLoadListener(new Listing.OnImagesInfoLoadedListener() {
-                @Override
-                public void onImagesInfoLoaded() {
-                    loadImage();
-                }
-            });
-            mPresenter.loadListingInfo(mListing);
         }
     }
 

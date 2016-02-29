@@ -12,8 +12,6 @@ import java.util.List;
 
 public class Listing implements Parcelable {
 
-    private OnImagesInfoLoadedListener mListener;
-
     @SerializedName("listing_id")
     @Expose
     private long mId;
@@ -126,22 +124,12 @@ public class Listing implements Parcelable {
         }
     }
 
-    /**
-     * As images loading separately here is ability to know when they being downloaded
-     *
-     * @param listener
-     */
-    public void setOnImagesInfoLoadListener(OnImagesInfoLoadedListener listener) {
-        mListener = listener;
-    }
-
     public void addImage(Image image) {
         if (image != null) {
             if (mImages == null) {
                 mImages = new ArrayList<>();
             }
             mImages.add(image);
-            dispathImagesLoad();
         }
     }
 
@@ -151,13 +139,6 @@ public class Listing implements Parcelable {
                 mImages = new ArrayList<>();
             }
             mImages.addAll(data);
-            dispathImagesLoad();
-        }
-    }
-
-    private void dispathImagesLoad() {
-        if (mListener != null) {
-            mListener.onImagesInfoLoaded();
         }
     }
 
@@ -190,9 +171,5 @@ public class Listing implements Parcelable {
             return new Listing[size];
         }
     };
-
-    public interface OnImagesInfoLoadedListener {
-        void onImagesInfoLoaded();
-    }
 
 }

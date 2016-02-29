@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Вспомогательный класс для маппинга. Все данные API отдает заворачивая в отдельный объект, а сами данные всегда лежат в поле result
+ * Additional class for mappign. All data received from API are wrapped with object, but all needed data is inside field "result"
  *
  * @param <T>
  */

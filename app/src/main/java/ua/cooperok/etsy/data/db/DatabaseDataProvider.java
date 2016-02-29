@@ -132,6 +132,25 @@ public class DatabaseDataProvider implements IDataProvider {
     }
 
     @Override
+    public void requestListingsImages(List<Listing> listings, Callback<Void> callback) {
+        for (final Listing listing : listings) {
+            //it's doing synchronous
+            requestListingImages(listing.getId(), new Callback<List<Image>>() {
+                @Override
+                public void onDataReceived(List<Image> data) {
+                    listing.addImages(data);
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+        }
+        callback.onDataReceived(null);
+    }
+
+    @Override
     public void requestCategories(Callback<List<Category>> callback) {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
         Cursor c = db.rawQuery(DatabaseHelper.SELECT_CATEGORIES, null);

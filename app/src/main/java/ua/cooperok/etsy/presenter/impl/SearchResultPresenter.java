@@ -46,14 +46,25 @@ public class SearchResultPresenter implements ISearchResultPresenter {
         mView.showPreload();
         mDataProvider.requestListings(catalog, search, mOffset, mLimit, new Callback<List<Listing>>() {
             @Override
-            public void onDataReceived(List<Listing> data) {
-                mView.hidePreload();
+            public void onDataReceived(final List<Listing> listings) {
                 mOffset += mLimit;
-                if (data.isEmpty()) {
+                if (listings.isEmpty()) {
                     mView.onEmptySearch();
                 } else {
-                    mView.showSearchResult(data);
-                    loadListingsImages(data);
+                    //If there is listings then we load images for them, and only after that sending full data to view
+                    mDataProvider.requestListingsImages(listings, new Callback<Void>() {
+                        @Override
+                        public void onDataReceived(Void data) {
+                            mView.hidePreload();
+                            mView.showSearchResult(listings);
+                        }
+
+                        @Override
+                        public void onError() {
+                            mView.hidePreload();
+                            mView.showSearchResult(listings);
+                        }
+                    });
                 }
             }
 
@@ -63,23 +74,6 @@ public class SearchResultPresenter implements ISearchResultPresenter {
                 mView.onLoadError();
             }
         });
-    }
-
-    private void loadListingsImages(List<Listing> data) {
-        //for every listing sending request for images
-        for (final Listing listing : data) {
-            mDataProvider.requestListingImages(listing.getId(), new Callback<List<Image>>() {
-                @Override
-                public void onDataReceived(List<Image> data) {
-                    listing.addImages(data);
-                }
-
-                @Override
-                public void onError() {
-
-                }
-            });
-        }
     }
 
     @Override

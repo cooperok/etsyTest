@@ -28,6 +28,17 @@ public interface IDataProvider {
     void requestListingImages(long listingId, Callback<List<Image>> callback);
 
     /**
+     * Loading bunch of images information for list of listings and matching them together.
+     * Method uses when there is a need of showing list of listings in one page, such as search result fragment.
+     * After loading images info for one listing its adding to it.
+     * Callback is called after all images info are uploaded and added to listing
+     *
+     * @param listings
+     * @param callback
+     */
+    void requestListingsImages(List<Listing> listings, Callback<Void> callback);
+
+    /**
      * Loading listings list from certain category by matching search text. Have additional parameters offset and limit
      * to be able download listings by parts
      *
